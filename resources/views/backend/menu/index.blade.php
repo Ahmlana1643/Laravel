@@ -1,6 +1,6 @@
 @extends('backend.template.main')
 
-@section('title', 'Image')
+@section('title', 'Menu')
 
 @section('content')
 
@@ -13,17 +13,17 @@
                 </a>
             </li>
             <li class="breadcrumb-item"><a href="{{ route('panel.dashboard') }}">Dashboard</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Image</li>
+            <li class="breadcrumb-item active" aria-current="page">Menu</li>
         </ol>
     </nav>
     <div class="d-flex justify-content-between w-100 flex-wrap">
         <div class="mb-3 mb-lg-0">
-            <h1 class="h4">Image</h1>
-            <p class="mb-0">Daftar Gambar Ymmuy Restoran</p>
+            <h1 class="h4">Menu</h1>
+            <p class="mb-0">Daftar Menu Yummy Restoran</p>
         </div>
         <div>
-            <a href="{{ route('panel.image.create') }}" class="btn btn-warning d-inline-flex align-items-center">
-                <i class="fas fa-plus me-1"></i> Create Image
+            <a href="{{ route('panel.menu.create') }}" class="btn btn-warning d-inline-flex align-items-center">
+                <i class="fas fa-plus me-1"></i> Create Menu
             </a>
         </div>
     </div>
@@ -38,40 +38,52 @@
                     <tr>
                         <th class="border-0 rounded-start">No</th>
                         <th class="border-0">Name</th>
-                        <th class="border-0">Slug</th>
-                        <th class="border-0">Description</th>
+                        <th class="border-0">Category</th>
+                        <th class="border-0">Price</th>
+                        <th class="border-0">Status</th>
                         <th class="border-0">File</th>
                         <th class="border-0 rounded-end">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($images as $item)
+                    @forelse ($menus as $item)
                         <tr>
-                            <td>{{ ($images->currentPage() - 1) * $images->perPage() + $loop->iteration }}</td>
+                            <td>{{ ($menus->currentPage() - 1) * $menus->perPage() + $loop->iteration }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>{{ $item->slug }}</td>
-                            <td>{{ Str::limit($item->description, 25, '...') }}</td>
+                            <td>{{ $item->category->title }}</td>
+                            <td>Rp.{{ number_format($item->price, 0, ',', '.') }}</td>
+                            <td>
+                                @if ($item->status == 'active')
+                                    <span class="badge bg-success">Active</span>
+                                @else
+                                    <span class="badge bg-danger">Inactive</span>
+                                @endif
+                            </td>
                             <td width="20%">
-                                <img src="{{ asset('storage/' . $item->file . '') }}" target="_blank">
+                                <img src="{{ asset('storage/' . $item->image . '') }}" target="_blank">
                             </td>
                             <td>
                                 <div>
-                                    <a href="{{ route('panel.image.show', $item->uuid) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
-                                    <a href="{{ route('panel.image.edit', $item->uuid) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-                                    <button class="btn btn-sm btn-danger" onclick="deleteImage(this)" data-uuid="{{ $item->uuid }}">
+                                    <a href="{{ route('panel.menu.show', $item->uuid) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ route('panel.menu.edit', $item->uuid) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteMenu(this)" data-uuid="{{ $item->uuid }}">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
 
                                 </div>
                             </td>
                         </tr>
-                    @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="7" class="text-center">No data available</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
 
             {{-- pagination --}}
             <div class="mt-3">
-                {{ $images->links() }}
+                {{ $menus->links() }}
             </div>
         </div>
     </div>
@@ -85,7 +97,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        const deleteImage = (e) => {
+        const deleteMenu = (e) => {
             let uuid = e.getAttribute('data-uuid')
 
         Swal.fire({
@@ -100,7 +112,7 @@
              if (result.value) {
                 $.ajax({
                     type: "DELETE",
-                    url: `/panel/image/${uuid}`,
+                    url: `/panel/menu/${uuid}`,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -119,7 +131,7 @@
                     error: function(data){
                         Swal.fire({
                             title: "Deleted!",
-                            text: "Your file has not been deleted.",
+                            text: "Your data has not been deleted.",
                             icon: "error"
                         });
 

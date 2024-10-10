@@ -70,17 +70,17 @@
           role="list" id="submenu-app" aria-expanded="false">
           <ul class="flex-column nav">
             <li class="nav-item ">
-              <a class="nav-link" href="{{ asset('backend')}}/pages/tables/bootstrap-tables.html">
+              <a class="nav-link" href="{{ route('panel.menu.index') }}">
                 <span class="sidebar-text">Menu</span>
               </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" href="{{ asset('backend')}}/pages/tables/bootstrap-tables.html">
+              <a class="nav-link" href="#">
                 <span class="sidebar-text">Chef</span>
               </a>
             </li>
             <li class="nav-item ">
-              <a class="nav-link" href="{{ asset('backend')}}/pages/tables/bootstrap-tables.html">
+              <a class="nav-link" href="#">
                 <span class="sidebar-text">Event</span>
               </a>
             </li>
