@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class CategorySeeder extends Seeder
 {
@@ -21,19 +20,19 @@ class CategorySeeder extends Seeder
                 'slug' => 'starters'
             ],
             [
-            'uuid' => Str::uuid(),
-            'title' => 'Breakfast',
-            'slug' => 'breakfast',
+                'uuid' => Str::uuid(),
+                'title' => 'Breakfast',
+                'slug' => 'breakfast'
             ],
             [
-            'uuid' => Str::uuid(),
-            'title' => 'Lunch',
-            'slug' => 'lunch',
+                'uuid' => Str::uuid(),
+                'title' => 'Lunch',
+                'slug' => 'lunch'
             ],
             [
-            'uuid' => Str::uuid(),
-            'title' => 'Dinner',
-            'slug' => 'dinner',
+                'uuid' => Str::uuid(),
+                'title' => 'Dinner',
+                'slug' => 'dinner'
             ]
         ]);
     }

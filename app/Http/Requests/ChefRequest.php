@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MenuRequest extends FormRequest
+class ChefRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,12 @@ class MenuRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|min:3|unique:menus,name',
-            'category_id' => 'required|exists:categories,id',
+            'name' => 'required|min:3',
+            'position' => 'required',
             'description' => 'required|min:3',
-            'price' => 'required|numeric',
-            'status' => 'required',
-            'image' => $this->method() === 'POST' ? 'required|image|mimetypes:image/jpeg,image/png,image/jpg,image/gif,image/svg|mimes:jpeg,png,jpg,gif,svg|max:4096' : 'nullable|required|image|mimetypes:image/jpeg,image/png,image/jpg,image/gif,image/svg|mimes:jpeg,png,jpg,gif,svg|max:4096'
+            'insta_link' => 'required',
+            'linked_link' => 'required',
+            'photo' => 'nullable|image|mimetypes:image/jpeg,image/png,image/jpg,image/gif,image/svg|mimes:jpeg,png,jpg,gif,svg|max:4096'
         ];
     }
 }

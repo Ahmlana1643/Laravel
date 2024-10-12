@@ -1,6 +1,6 @@
 @extends('backend.template.main')
 
-@section('title', 'Create Menu')
+@section('title', 'Create Chef')
 
 @section('content')
 
@@ -13,17 +13,17 @@
                 </a>
             </li>
             <li class="breadcrumb-item"><a href="{{ route('panel.dashboard') }}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('panel.menu.index') }}">Menu</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Create Menu</li>
+            <li class="breadcrumb-item"><a href="{{ route('panel.chef.index') }}">Chef</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Create Chef</li>
         </ol>
     </nav>
     <div class="d-flex justify-content-between w-100 flex-wrap">
         <div class="mb-3 mb-lg-0">
-            <h1 class="h4">Create Menu</h1>
-            <p class="mb-0">Tambah Menu Yummy Restoran</p>
+            <h1 class="h4">Create Chef</h1>
+            <p class="mb-0">Tambah Chef Yummy Restoran</p>
         </div>
         <div>
-            <a href="{{ route('panel.menu.index') }}" class="btn btn-outline-gray-600 d-inline-flex align-items-center">
+            <a href="{{ route('panel.chef.index') }}" class="btn btn-outline-gray-600 d-inline-flex align-items-center">
                 <i class="fas fa-arrow-left me-1"></i> Back
             </a>
         </div>
@@ -39,11 +39,11 @@
 {{-- form --}}
 <div class="card border-0 shadow mb-4">
     <div class="card-body">
-        <form action="{{ route('panel.menu.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('panel.chef.store') }}" method="post" enctype="multipart/form-data">
             @csrf
-
+            {{-- name & position --}}
             <div class="row">
-                <div class="col-md 6">
+                <div class="col-md-6">
                     <div class="mb-3">
                         <label for="name">Name</label>
                         <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
@@ -57,15 +57,15 @@
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
-                        <label for="category_id">Category</label>
-                        <select name="category_id" id="category_id" class="form-select @error('category_id') is-invalid @enderror">
-                            <option value="" hidden>-- Select Category --</option>
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->title }}</option>
-                            @endforeach
+                        <label for="position">Position</label>
+                        <select name="position" id="position" class="form-select @error('position') is-invalid @enderror">
+                            <option value="" hidden>-- Select Position --</option>
+                            <option value="Master Chef">Master Chef</option>
+                            <option value="patissier">Patissier</option>
+                            <option value="Chef">Chef</option>
                         </select>
 
-                        @error('category_id')
+                        @error('position')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -73,9 +73,11 @@
                     </div>
                 </div>
             </div>
+
+            {{-- description --}}
             <div class="mb-3">
                 <label for="name">Description</label>
-                <textarea name="description" id="description" cols="5" rows="5" class="form-control @error('description') is-invalid @enderror">{{ old('name') }}</textarea>
+                <textarea name="description" id="description" cols="5" rows="5" class="form-control @error('description') is-invalid @enderror">{{ old('description') }}</textarea>
 
                 @error('description')
                     <span class="invalid-feedback" role="alert">
@@ -83,13 +85,14 @@
                     </span>
                 @enderror
             </div>
+            {{-- social media --}}
             <div class="row">
-                <div class="col-md 6">
+                <div class="col-md-6">
                     <div class="mb-3">
-                        <label for="price">Price</label>
-                        <input type="number" name="price" id="price" min="0" class="form-control @error('name') is-invalid @enderror" value="{{ old('price') }}">
+                        <label for="insta_link">Instagram Link</label>
+                        <input type="text" name="insta_link" id="insta_link" class="form-control @error('insta_link') is-invalid @enderror" value="{{ old('insta_link') }}">
 
-                        @error('price')
+                        @error('insta_link')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -98,14 +101,10 @@
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
-                        <label for="status">Status</label>
-                        <select name="status" id="status" class="form-select @error('status') is-invalid @enderror">
-                            <option value="" hidden>-- Select Status --</option>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
-                        </select>
+                        <label for="linked_link">LinkedIn Link</label>
+                        <input type="text" name="linked_link" id="linked_link" class="form-control @error('linked_link') is-invalid @enderror" value="{{ old('linked_link') }}">
 
-                        @error('status')
+                        @error('linked_link')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -113,18 +112,20 @@
                     </div>
                 </div>
             </div>
-            <div class="mb-3">
-                <label for="image">Image</label>
-                <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror" accept="image/*">
 
-                @error('file')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
+            {{-- photo --}}
+                <div class="mb-3">
+                    <label for="photo">Photo</label>
+                    <input type="file" name="photo" id="photo" class="form-control @error('photo') is-invalid @enderror" accept="image/*">
+
+                    @error('photo')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
             <div class="mb-3 float-end">
-                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
     </div>

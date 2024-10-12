@@ -26,7 +26,7 @@ class ImageRequest extends FormRequest
         return [
             'name' => 'required|min:3|unique:images,name,' . $routeId . ',uuid',
             'description' => 'required|min:3',
-            'file' =>  $this->method() === 'POST' ? 'required|image|mimetypes:image/jpeg,image/png,image/jpg,image/gif,image/svg|mimes:jpeg,png,jpg,gif,svg|max:2048' : 'nullable|required|image|mimetypes:image/jpeg,image/png,image/jpg,image/gif,image/svg|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'file' =>  $this->method() === 'POST' ? 'required|image|mimetypes:image/jpeg,image/png,image/jpg,image/gif,image/svg|mimes:jpeg,png,jpg,gif,svg|max:2048' : 'nullable|required|image|mimetypes:image/jpeg,image/png,image/jpg,image/gif,image/svg|mimes:jpeg,png,jpg,gif,svg|max:4096'
         ];
     }
 }

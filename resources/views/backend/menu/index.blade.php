@@ -123,9 +123,9 @@
                             icon: "success",
                             timer: 2500,
                             showConfirmButton: false
+                        }).then(() => {
+                            window.location.reload();
                         });
-
-                        window.location.reload();
 
                     },
                     error: function(data){

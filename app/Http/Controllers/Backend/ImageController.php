@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
-use App\Models\Gallery\Image;
 use App\Http\services\FileService;
 use App\Http\Requests\ImageRequest;
 use App\Http\services\ImageService;

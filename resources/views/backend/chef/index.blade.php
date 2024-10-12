@@ -1,6 +1,6 @@
 @extends('backend.template.main')
 
-@section('title', 'Image')
+@section('title', 'Chef')
 
 @section('content')
 
@@ -13,21 +13,28 @@
                 </a>
             </li>
             <li class="breadcrumb-item"><a href="{{ route('panel.dashboard') }}">Dashboard</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Image</li>
+            <li class="breadcrumb-item active" aria-current="page">Chef</li>
         </ol>
     </nav>
     <div class="d-flex justify-content-between w-100 flex-wrap">
         <div class="mb-3 mb-lg-0">
-            <h1 class="h4">Image</h1>
-            <p class="mb-0">Daftar Gambar Yummy Restoran</p>
+            <h1 class="h4">Chef</h1>
+            <p class="mb-0">Daftar Chef Yummy Restoran</p>
         </div>
         <div>
-            <a href="{{ route('panel.image.create') }}" class="btn btn-warning d-inline-flex align-items-center">
-                <i class="fas fa-plus me-1"></i> Create Image
+            <a href="{{ route('panel.chef.create') }}" class="btn btn-warning d-inline-flex align-items-center">
+                <i class="fas fa-plus me-1"></i> Create Chef
             </a>
         </div>
     </div>
 </div>
+
+@session('success')
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endsession
 
 {{-- table --}}
 <div class="card border-0 shadow mb-4">
@@ -38,27 +45,30 @@
                     <tr>
                         <th class="border-0 rounded-start">No</th>
                         <th class="border-0">Name</th>
-                        <th class="border-0">Slug</th>
+                        <th class="border-0">Position</th>
                         <th class="border-0">Description</th>
-                        <th class="border-0">File</th>
+                        <th class="border-0">Photo</th>
                         <th class="border-0 rounded-end">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($images as $item)
+                    @foreach ($chefs as $item)
                         <tr>
-                            <td>{{ ($images->currentPage() - 1) * $images->perPage() + $loop->iteration }}</td>
+                            <td>{{ ($chefs->currentPage() - 1) * $chefs->perPage() + $loop->iteration }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>{{ $item->slug }}</td>
+                            <td>{{ $item->position }}</td>
                             <td>{{ Str::limit($item->description, 25, '...') }}</td>
                             <td width="20%">
-                                <img src="{{ asset('storage/' . $item->file . '') }}" target="_blank">
+                                @if ($item->photo)
+                                    <img src="{{ asset('storage/' . $item->photo . '') }}" target="_blank">
+                                @else
+                                    -
+                                @endif
                             </td>
                             <td>
                                 <div>
-                                    <a href="{{ route('panel.image.show', $item->uuid) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
-                                    <a href="{{ route('panel.image.edit', $item->uuid) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-                                    <button class="btn btn-sm btn-danger" onclick="deleteImage(this)" data-uuid="{{ $item->uuid }}">
+                                    <a href="{{ route('panel.chef.edit', $item->uuid) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteChef(this)" data-uuid="{{ $item->uuid }}">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
 
@@ -71,7 +81,7 @@
 
             {{-- pagination --}}
             <div class="mt-3">
-                {{ $images->links() }}
+                {{ $chefs->links() }}
             </div>
         </div>
     </div>
@@ -85,7 +95,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        const deleteImage = (e) => {
+        const deleteChef = (e) => {
             let uuid = e.getAttribute('data-uuid')
 
         Swal.fire({
@@ -100,7 +110,7 @@
              if (result.value) {
                 $.ajax({
                     type: "DELETE",
-                    url: `/panel/image/${uuid}`,
+                    url: `/panel/chef/${uuid}`,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
