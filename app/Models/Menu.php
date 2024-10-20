@@ -28,6 +28,7 @@ class Menu extends Model
         static::creating(function($model){
             $model->uuid = Str::uuid();
             $model->user_id = auth()->user()->id;
+            
         });
     }
 

@@ -16,6 +16,13 @@
 
                     {{ __('You are logged in!') }}
                 </div>
+                <div class="card-footer d-flex justify-content-end">
+                    <div>
+                        <a href="{{ route('panel.dashboard') }}" class="btn btn-outline-gray-600 d-inline-flex align-items-center">
+                            <i class="fas fa-arrow-left me-1"></i> Back
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

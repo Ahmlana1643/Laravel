@@ -29,6 +29,13 @@
     </div>
 </div>
 
+@session('success')
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endsession
+
 {{-- table --}}
 <div class="card border-0 shadow mb-4">
     <div class="card-body">
@@ -65,11 +72,12 @@
                             <td>
                                 <div>
                                     <a href="{{ route('panel.event.show', $item->uuid) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+                                    @if (auth()->user()->role == 'operator')
                                     <a href="{{ route('panel.event.edit', $item->uuid) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-                                    <button class="btn btn-sm btn-danger" onclick="deleteevent(this)" data-uuid="{{ $item->uuid }}">
+                                    <button class="btn btn-sm btn-danger" onclick="deleteEvent(this)" data-uuid="{{ $item->uuid }}">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
-
+                                    @endif
                                 </div>
                             </td>
                         </tr>
@@ -93,7 +101,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        const deleteevent = (e) => {
+        const deleteEvent = (e) => {
             let uuid = e.getAttribute('data-uuid')
 
         Swal.fire({

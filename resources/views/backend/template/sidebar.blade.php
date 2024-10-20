@@ -103,15 +103,15 @@
             <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
           </span>
         </span>
-        <div class="multi-level collapse {{ Route::is('panel.image.*') ? 'show' : ''}}" role="list" id="submenu-gallery" aria-expanded="false">
+        <div class="multi-level collapse {{ Route::is('panel.image.*', 'panel.video.*') ? 'show' : ''}}" role="list" id="submenu-gallery" aria-expanded="false">
           <ul class="flex-column nav">
             <li class="nav-item {{ Route::is('panel.image.*') ? 'active' : '' }}">
               <a class="nav-link" href="{{ route('panel.image.index') }}">
                 <span class="sidebar-text">Image</span>
               </a>
             </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="{{ asset('backend')}}/pages/tables/bootstrap-tables.html">
+            <li class="nav-item {{ Route::is('panel.video.*') ? 'active' : '' }}">
+              <a class="nav-link" href="{{ route('panel.video.index') }}">
                 <span class="sidebar-text">Video</span>
               </a>
             </li>
@@ -120,16 +120,16 @@
       </li>
       </li>
 
-      <li class="nav-item ">
-        <a href="{{ asset('backend')}}/pages/transactions.html" class="nav-link">
+      <li class="nav-item {{ request()->routeIs('panel.transaction.*') ? 'active' : ''}}">
+        <a href="{{ route('panel.transaction.index') }}" class="nav-link">
           <span class="sidebar-icon">
             <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path><path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd"></path></svg>
           </span>
           <span class="sidebar-text">Transactions</span>
         </a>
       </li>
-      <li class="nav-item ">
-        <a href="{{ asset('backend')}}/pages/transactions.html" class="nav-link">
+      <li class="nav-item {{ request()->routeIs('panel.review.*') ? 'active' : ''}}">
+        <a href="{{ route('panel.review.index')}}" class="nav-link">
           <span class="sidebar-icon">
             <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path><path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd"></path></svg>
           </span>

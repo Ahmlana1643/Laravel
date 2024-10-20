@@ -3,19 +3,24 @@
 namespace App\Http\Controllers\Backend;
 
 use Illuminate\Support\Str;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\ChefRequest;
 use App\Http\services\FileService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use App\Http\services\MiddlewareService;
 
 class ChefController extends Controller
 {
 
     public function __construct(
         private FileService $fileService,
-    ){}
+        private MiddlewareService $middlewareService
+    ){
+        $this->middlewareService->aksesRole();
+    }
     /**
      * Display a listing of the resource.
      */
@@ -112,7 +117,7 @@ class ChefController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $uuid) : RedirectResponse
+    public function destroy(string $uuid) : JsonResponse
     {
         $getChef = DB::table('chefs')->where('uuid', $uuid)->firstOrFail();
 

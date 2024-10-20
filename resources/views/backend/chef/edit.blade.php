@@ -20,7 +20,7 @@
     <div class="d-flex justify-content-between w-100 flex-wrap">
         <div class="mb-3 mb-lg-0">
             <h1 class="h4">Edit Chef</h1>
-            <p class="mb-0">Ubah Chef Ymmuy Restoran</p>
+            <p class="mb-0">Ubah Chef Yummy Restoran</p>
         </div>
         <div>
             <a href="{{ route('panel.chef.index') }}" class="btn btn-outline-gray-600 d-inline-flex align-items-center">

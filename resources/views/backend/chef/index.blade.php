@@ -48,7 +48,9 @@
                         <th class="border-0">Position</th>
                         <th class="border-0">Description</th>
                         <th class="border-0">Photo</th>
+                        @if (auth()->user()->role == 'operator')
                         <th class="border-0 rounded-end">Action</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -67,11 +69,12 @@
                             </td>
                             <td>
                                 <div>
+                                    @if (auth()->user()->role == 'operator')
                                     <a href="{{ route('panel.chef.edit', $item->uuid) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
                                     <button class="btn btn-sm btn-danger" onclick="deleteChef(this)" data-uuid="{{ $item->uuid }}">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
-
+                                    @endif
                                 </div>
                             </td>
                         </tr>

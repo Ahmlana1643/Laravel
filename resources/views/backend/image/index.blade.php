@@ -57,11 +57,12 @@
                             <td>
                                 <div>
                                     <a href="{{ route('panel.image.show', $item->uuid) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+                                    @if (auth()->user()->role == 'operator')
                                     <a href="{{ route('panel.image.edit', $item->uuid) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
                                     <button class="btn btn-sm btn-danger" onclick="deleteImage(this)" data-uuid="{{ $item->uuid }}">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
-
+                                    @endif
                                 </div>
                             </td>
                         </tr>

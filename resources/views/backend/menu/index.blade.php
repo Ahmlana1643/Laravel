@@ -65,11 +65,14 @@
                             <td>
                                 <div>
                                     <a href="{{ route('panel.menu.show', $item->uuid) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
-                                    <a href="{{ route('panel.menu.edit', $item->uuid) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-                                    <button class="btn btn-sm btn-danger" onclick="deleteMenu(this)" data-uuid="{{ $item->uuid }}">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
 
+                                    @if (auth()->user()->role == 'operator')
+                                        <a href="{{ route('panel.menu.edit', $item->uuid) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+
+                                        <button class="btn btn-sm btn-danger" onclick="deleteMenu(this)" data-uuid="{{ $item->uuid }}">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    @endif
                                 </div>
                             </td>
                         </tr>
@@ -138,9 +141,9 @@
                         console.log(data);
                     }
                 });
-            }
-        });
-    }
+                }
+            });
+        }
     </script>
 
 @endpush
